@@ -1,0 +1,17 @@
+# Perfil SOLO para pruebas automaticas: H2 en memoria en modo Oracle,
+# con la misma migracion de Flyway. El sistema real usa Oracle (perfil dev).
+spring:
+  datasource:
+    url: jdbc:h2:mem:vetandes;MODE=Oracle;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+app:
+  jwt:
+    secret: Qm9yZGVyQ29sbGllVmV0QW5kZXNKdW5nbGVQYXN0b3JBbGVtYW4yMDI2WFlaQUJD
+    expiracion-minutos: 60
+  cors:
+    allowed-origins: http://localhost:4200

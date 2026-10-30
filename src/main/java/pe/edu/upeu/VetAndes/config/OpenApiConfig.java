@@ -1,0 +1,21 @@
+package pe.edu.upeu.VetAndes.config;
+
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import org.springframework.context.annotation.Configuration;
+
+/*
+ * Boton "Authorize" en Swagger UI: se pega el token del login (sin la
+ * palabra Bearer) y Swagger lo envia en cada peticion.
+ */
+@Configuration
+@OpenAPIDefinition(
+        info = @Info(title = "VetAndes API", version = "v1",
+                description = "Atenciones de la clínica veterinaria VetAndes"),
+        security = @SecurityRequirement(name = "bearerAuth"))
+@SecurityScheme(name = "bearerAuth", type = SecuritySchemeType.HTTP, scheme = "bearer", bearerFormat = "JWT")
+public class OpenApiConfig {
+}
