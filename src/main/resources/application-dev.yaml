@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+  # Oracle: usa un esquema NUEVO y vacio (por ejemplo VETANDES), no uno
+  # de otro proyecto: Flyway crea aqui las tablas usuarios y roles.
+  datasource:
+    url: ${DB_URL:jdbc:oracle:thin:@//localhost:1522/xepdb1}
+    username: ${DB_USERNAME:vetandes}
+    password: ${DB_PASSWORD:vetandes}
+  jpa:
+    # El esquema lo crea Flyway (V1__esquema_y_semilla.sql); Hibernate no
+    # crea ni modifica tablas.
+    hibernate:
+      ddl-auto: none
+    # La sesion de Hibernate no se mantiene abierta hasta la vista: toda
+    # conversion entidad -> DTO ocurre dentro del servicio (@Transactional).
+    open-in-view: false
+    show-sql: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    enabled: true
+
+# JWT. El secreto es una clave Base64 de 48 bytes (384 bits).
+# SOLO para clase: en produccion llega por variable de entorno.
+app:
+  jwt:
+    secret: ${JWT_SECRET:Qm9yZGVyQ29sbGllVmV0QW5kZXNKdW5nbGVQYXN0b3JBbGVtYW4yMDI2WFlaQUJD}
+    expiracion-minutos: 60
+  cors:
+    allowed-origins: http://localhost:4200
+
+logging:
+  level:
+    pe.edu.upeu.VetAndes: INFO
